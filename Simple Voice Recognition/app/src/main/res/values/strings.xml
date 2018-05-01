@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">VoiceRecogDemo</string>
+    <string name="search">Click on the icon above for voice recognition</string>
+    <string name="acknowledgements_title">ACKNOWLEDGEMENTS</string>
+    <string name="actual_acknowledgements">
+        THE MICROPHONE ICON HAS BEEN TAKEN FROM:
+        \n https://goo.gl/l7tz6G
+        \n\n OTHER SOURCES:
+        \n (1) https://goo.gl/ek19Cj
+        \n (2) https://goo.gl/MfqT8o</string>
+</resources>
