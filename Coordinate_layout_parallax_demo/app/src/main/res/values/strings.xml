@@ -1,3 +1,36 @@
 <resources>
     <string name="app_name">Coordinate_layout_parallax_demo</string>
+    <string name="enter_always_collapsed"> enter_always_collapsed Details:
+         Normally, when only enterAlways is used, the Toolbar will continue to expand as you scroll down.
+        Assuming enterAlways is declared and you have specified a minHeight,
+        you can also specify enterAlwaysCollapsed. When this setting is used,
+        your view will only appear at this minimum height.
+        Only when scrolling reaches to the top will the view expand to its full height
+        \n \n \n</string>
+    <string name="enter_always">enter_always Details:
+        The view will become visible when scrolling up. This flag is useful in cases when scrolling
+        from the bottom of a list and wanting to expose the Toolbar as soon as scrolling up takes place.
+        \n \n \n</string>
+    <string name="exit_untill_collapsed"> exit_untill_collapsed Details:
+When the scroll flag is set, scrolling down will normally cause the entire content to move.
+        By specifying a minHeight and exitUntilCollapsed,
+        the minimum height of the Toolbar will be reached before the rest of the content begins to scroll
+        and exit from the screen
+        \n \n \n</string>
+    <string name="scroll"> \n \n \n</string>
+    <string name="snap"> Using this option will determine what to do when a view only has been partially reduced.
+        If scrolling ends and the view size has been reduced to less than 50% of its original,
+        then this view to return to its original size. If the size is greater than 50% of its sized,
+        it will disappear completely.
+        \n \n \n</string>
+
+
+    <string name="random_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+        Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s,
+        when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+        It has survived not only five centuries, but also the leap into electronic typesetting
+        , remaining essentially unchanged.
+        It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+        and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</string>
+
 </resources>
