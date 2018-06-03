@@ -1,4 +1,4 @@
-# basics-android
+# Basics of Android
 
 Quick Links:
 
