@@ -1,5 +1,6 @@
 package numad17s.neu.edu.voicerecogdemo;
 
+import android.app.SearchManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,17 +20,27 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     public Vibrator v1;
-    public static int REQUEST_CODE = 100;
+    public static int REQUEST_CODE_ACTIVITY_RECOG = 100;
     ImageButton microphoneButtonIcon;
+    TextView displayHint;
+    TextView resultTextView;
+    ArrayList<String> addVoiceResultToArrayList;
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle("Voice Recognition Demo");
+
+        displayHint = findViewById(R.id.displayHint);
+
+        //TextView to display top 3 results depending on confidence score
+        resultTextView = (TextView) findViewById(R.id.resultV);
 
         //Initialize vibrator else it will throw null pointer
         //Also make changes in Manifest file and give the permission to vibrate
@@ -68,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         // 3. Get the AlertDialog from create()
         final AlertDialog acknowledgementDialog = acknowledgementsDialogBuilder.create();
 
@@ -81,6 +93,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+    /**
+     * Recognize the voice
+     */
     public void voiceRecog() {
 
         // Create an Intent using RecognizerIntent for speech Recognition
@@ -89,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         // Identify your application
         i.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getClass().getPackage().getName());
 
-        TextView displayHint = (TextView) findViewById(R.id.displayHint);
+
         i.putExtra(RecognizerIntent.EXTRA_PROMPT, displayHint.getText().toString());
 
         // Use the Speech Recognition model
@@ -97,16 +113,20 @@ public class MainActivity extends AppCompatActivity {
 
         //Start the Voice recognizer activity for the result.
         try {
-//            if (i.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(i, REQUEST_CODE);
-//            }
+            if (i.resolveActivity(getPackageManager()) != null) {
+                startActivityForResult(i, REQUEST_CODE_ACTIVITY_RECOG);
+            } else {
+                Log.e(TAG, "Unable to resolve Activity to start intent for Speech Recognition");
+            }
         } catch (ActivityNotFoundException e) {
-            Log.e("ACTIVITY_NOT_FOUND", e.getMessage());
-            Toast.makeText(this, "No google application found to record voice input", Toast.LENGTH_LONG).show();
+            Log.e(TAG, "ACTIVITY_NOT_FOUND" + e.getMessage());
+            Toast.makeText(this, "No google application found to record voice input",
+                    Toast.LENGTH_LONG).show();
             try {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.google.android.googlequicksearchbox")));
+                startActivity(new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=com.google.android.googlequicksearchbox")));
             } catch (Exception exception) {
-                Log.e("Playstore_NOT_INSTALLED", exception.getMessage());
+                Log.e(TAG, "Playstore NOT INSTALLED: " + exception.getMessage());
                 startActivity(new Intent(Intent.ACTION_VIEW,
                         Uri.parse("https://play.google.com/store/apps/details?id=com.google.android.googlequicksearchbox")));
             }
@@ -116,40 +136,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        //TextView to display top 3 results depending on confidence score
-        TextView t = (TextView) findViewById(R.id.resultV);
+        if (requestCode == REQUEST_CODE_ACTIVITY_RECOG && resultCode == RESULT_OK) {
 
+            addVoiceResultToArrayList = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-
-            ArrayList<String> addResultToArrayList = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-
-            if (addResultToArrayList != null) {
-                Log.e("ARRAY", addResultToArrayList.toString());
-
-//                    if (addResultToArrayList.get(0).contains("search")) {
-                //Get the 1st from ArrayList
-//                        String searchTheNet = addResultToArrayList.get(0);
-//                        Log.e("searchTheNet: ", addResultToArrayList.get(0));
-//                        searchTheNet = searchTheNet.replace("search", "");
-//                        Log.e("searchTheNet: \t", searchTheNet);
-                //Send a web search intent
-//                        Intent searchIntent = new Intent(Intent.ACTION_WEB_SEARCH);
-//                        searchIntent.putExtra(SearchManager.QUERY, searchTheNet);
-//                        startActivity(searchIntent);
-//                    }
+            if (addVoiceResultToArrayList != null && addVoiceResultToArrayList.size() > 0) {
                 float[] confidence = data.getFloatArrayExtra(RecognizerIntent.EXTRA_CONFIDENCE_SCORES);
-
+                Log.e(TAG, Arrays.toString(data.getFloatArrayExtra(RecognizerIntent.EXTRA_CONFIDENCE_SCORES)));
                 //Display The result with its confidence score
-                if (addResultToArrayList.size() >= 3 && confidence.length >= 3) {
-                    for (int i = 0; i < addResultToArrayList.size(); i++) {
-                        t.append(addResultToArrayList.get(i));
-                        t.append(".\tConfidence Score: " + String.valueOf(confidence[i]) + "\n\n");
-                    }
+                for (int i = 0; i < addVoiceResultToArrayList.size(); i++) {
+                    resultTextView.append(addVoiceResultToArrayList.get(i));
+                    resultTextView.append(".\tConfidence Score: " + String.valueOf(confidence[i]) + "\n\n");
                 }
-
             }
-        }
-    }
 
-}
+        }//End of requestCode and resultCode check if block
+    }//End of onActivityResult
+
+}//End of MainActivity

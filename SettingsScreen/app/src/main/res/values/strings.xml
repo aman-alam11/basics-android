@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">SettingsScreen</string>
+    <string name="text_weight_5">I have Weight 5</string>
+    <string name="text_weight_3">I have Weight 3</string>
+    <string name="text_weight_1">I have Weight 1</string>
+
+    <string name="settings_title">Settings</string>
+
+    <!--Preference Settings XML Strings-->
+    <string name="summary_on_string">Shown</string>
+    <string name="summary_off_string">Hidden</string>
+
+    <string name="tv_weight_5_check_box_key">check_box_key5</string>
+    <string name="tv_weight_3_check_box_key">check_box_key3</string>
+    <string name="tv_weight_1_check_box_key">check_box_key1</string>
+</resources>

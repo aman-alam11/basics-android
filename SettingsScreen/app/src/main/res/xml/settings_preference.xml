@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <CheckBoxPreference android:title="Text Box Weight 5 Shown"
+        android:id="@+id/tv_5_visibility_checkbox"
+        android:key="@string/tv_weight_5_check_box_key"
+        android:defaultValue="@bool/pref_show_tv5"
+        android:summaryOff="@string/summary_off_string"
+        android:summaryOn="@string/summary_on_string"/>
+
+    <!--<CheckBoxPreference android:title="Text Box Weight 3 Shown"-->
+        <!--android:id="@+id/tv_weight_3_check_box_key"-->
+        <!--android:key="@string/tv_weight_3_check_box_key"-->
+        <!--android:defaultValue="true"-->
+        <!--android:summaryOff="@string/summary_off_string"-->
+        <!--android:summaryOn="@string/summary_on_string"/>-->
+
+    <!--<CheckBoxPreference android:title="Text Box 3 Shown"-->
+        <!--android:id="@+id/tv_1_visibility_checkbox"-->
+        <!--android:key="@string/tv_weight_1_check_box_key"-->
+        <!--android:defaultValue="true"-->
+        <!--android:summaryOff="@string/summary_off_string"-->
+        <!--android:summaryOn="@string/summary_on_string"/>-->
+
+</PreferenceScreen>
