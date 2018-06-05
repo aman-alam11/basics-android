@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <bool name="pref_show_tv5">true</bool>
+    <bool name="pref_show_tv3">true</bool>
+    <bool name="pref_show_tv1">true</bool>
 </resources>

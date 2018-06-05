@@ -13,22 +13,46 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
-public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener{
+public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-    private TextView tv5;
-    private TextView tv3;
-    private TextView tv1;
+    private TextView textViewWeight5;
+    private TextView textViewWeight3;
+    private TextView textViewWeight1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tv5 = findViewById(R.id.text_view_weight_5);
-        tv3 = findViewById(R.id.text_view_weight_3);
-        tv1 = findViewById(R.id.text_view_weight_1);
+        textViewWeight5 = findViewById(R.id.text_view_weight_5);
+        textViewWeight3 = findViewById(R.id.text_view_weight_3);
+        textViewWeight1 = findViewById(R.id.text_view_weight_1);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         preferences.registerOnSharedPreferenceChangeListener(this);
 
+        setupVisibilityFromPreference(preferences);
+
+    }
+
+
+    /**
+     * Read from preferences in OnCreate to setup visibility of textviews
+     * If someone has made a textview invisible from last run, it will be read from preferences
+     * Else on create will automatically make everything visible
+     */
+    private void setupVisibilityFromPreference(SharedPreferences preferences) {
+        toggleVisibilityTextView(
+                preferences.getBoolean(getResources().getString(R.string.tv_weight_5_check_box_key),
+                        getResources().getBoolean(R.bool.pref_show_tv5)),
+                textViewWeight5);
+        toggleVisibilityTextView(
+                preferences.getBoolean(getResources().getString(R.string.tv_weight_3_check_box_key),
+                        getResources().getBoolean(R.bool.pref_show_tv3)),
+                textViewWeight3);
+        toggleVisibilityTextView(
+                preferences.getBoolean(getResources().getString(R.string.tv_weight_1_check_box_key),
+                        getResources().getBoolean(R.bool.pref_show_tv1)),
+                textViewWeight1);
     }
 
 
@@ -83,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.settings_item){
+        if (item.getItemId() == R.id.settings_item) {
             Intent openSettingsIntent = new Intent(this, SettingsActivity.class);
             startActivity(openSettingsIntent);
             return true;
@@ -104,16 +128,39 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
-        if(key.equals(getResources().getString(R.string.tv_weight_5_check_box_key))){
-            boolean isVisible = sharedPreferences.getBoolean(getResources().getString(R.string.tv_weight_5_check_box_key),
-                    true);
-            if(!isVisible){
-                tv5.setVisibility(View.INVISIBLE);
-            } else {
-                tv5.setVisibility(View.VISIBLE);
-            }
+        if (key.equals(getResources().getString(R.string.tv_weight_5_check_box_key))) {
+            toggleVisibilityTextView(
+                    sharedPreferences
+                            .getBoolean(getResources().getString(R.string.tv_weight_5_check_box_key),
+                                    getResources().getBoolean(R.bool.pref_show_tv5)),
+                    textViewWeight5);
+        } else if (key.equals(getResources().getString(R.string.tv_weight_3_check_box_key))) {
+            toggleVisibilityTextView(
+                    sharedPreferences
+                            .getBoolean(getResources().getString(R.string.tv_weight_3_check_box_key),
+                                    getResources().getBoolean(R.bool.pref_show_tv3)),
+                    textViewWeight3
+            );
+        } else if (key.equals(getResources().getString(R.string.tv_weight_1_check_box_key))) {
+            toggleVisibilityTextView(
+                    sharedPreferences
+                            .getBoolean(getResources().getString(R.string.tv_weight_1_check_box_key),
+                                    getResources().getBoolean(R.bool.pref_show_tv1)),
+                    textViewWeight1
+            );
         }
 
+    }
+
+    /**
+     * Change visibility of text view based on checkboxpreference using the key
+     */
+    void toggleVisibilityTextView(Boolean isVisible, TextView textViewToToggle) {
+        if (!isVisible) {
+            textViewToToggle.setVisibility(View.INVISIBLE);
+        } else {
+            textViewToToggle.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

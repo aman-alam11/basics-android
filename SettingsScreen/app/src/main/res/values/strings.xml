@@ -13,4 +13,8 @@
     <string name="tv_weight_5_check_box_key">check_box_key5</string>
     <string name="tv_weight_3_check_box_key">check_box_key3</string>
     <string name="tv_weight_1_check_box_key">check_box_key1</string>
+
+    <string name="title_check_box5_pref">Text Box Weight 5 Shown</string>
+    <string name="title_check_box3_pref">Text Box Weight 3 Shown</string>
+    <string name="title_check_box1_pref">Text Box Weight 1 Shown</string>
 </resources>
