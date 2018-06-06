@@ -13,6 +13,7 @@ Quick Links:
 * [Access DB files on phones without root](https://github.com/aman-alam11/basics-android/wiki/Access-.db-files-on-phones-without-root)
 * [Using SQLite](https://github.com/aman-alam11/basics-android/wiki/Using-sqlite3)
 * [URIs, content providers and resolvers](https://github.com/aman-alam11/basics-android/wiki/Uniform-Resource-Identifiers-(URI),-Content-Providers-and-Content-Resolvers)
+* [Setting up SQLite Database basics](https://github.com/aman-alam11/basics-android/wiki/Setting-Up-Database-(SQLite3)-in-Android)
 
 
 ### Shared Preferences
