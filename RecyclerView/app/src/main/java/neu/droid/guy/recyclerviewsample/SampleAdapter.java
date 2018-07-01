@@ -93,9 +93,7 @@ public class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.SampleView
      */
     @Override
     public void onBindViewHolder(@NonNull SampleViewHolder holder, int position) {
-        holder.mainTextView.setText(listForRecyclerView.get(position).getMainText());
-        holder.leftTextView.setText(listForRecyclerView.get(position).getLeftText());
-        holder.rightTextView.setText(listForRecyclerView.get(position).getRightText());
+        holder.bindView(position);
     }
 
     /**
@@ -120,7 +118,7 @@ public class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.SampleView
         TextView leftTextView;
         TextView rightTextView;
 
-        public SampleViewHolder(View itemView) {
+        SampleViewHolder(View itemView) {
             super(itemView);
             mainTextView = itemView.findViewById(R.id.textView);
             leftTextView = itemView.findViewById(R.id.left_text_view);
@@ -131,6 +129,12 @@ public class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.SampleView
                     clickListener.onListClick(getAdapterPosition() + 1);
                 }
             });
+        }
+
+        void bindView(int index) {
+            mainTextView.setText(listForRecyclerView.get(index).getMainText());
+            leftTextView.setText(listForRecyclerView.get(index).getLeftText());
+            rightTextView.setText(listForRecyclerView.get(index).getRightText());
         }
 
     }
