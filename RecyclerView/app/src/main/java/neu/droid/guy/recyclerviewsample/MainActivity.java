@@ -4,11 +4,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SampleAdapter.onListClickListener {
     RecyclerView recyclerView;
     SampleAdapter adapter;
 
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
 
 
-        adapter = new SampleAdapter(prepareRandomData());
+        adapter = new SampleAdapter(prepareRandomData(), this);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
     }
@@ -40,5 +41,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return sampleData;
+    }
+
+    /**
+     * Handle clicks on Recycler View Items
+     *
+     * @param viewClickedPosition The position clicked on in the list
+     */
+    @Override
+    public void onListClick(int viewClickedPosition) {
+        // Do Anything with the clicked position here
+        Toast.makeText(this,
+                "Item clicked :" + viewClickedPosition,
+                Toast.LENGTH_SHORT).show();
     }
 }

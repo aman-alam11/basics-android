@@ -1,6 +1,5 @@
 package neu.droid.guy.recyclerviewsample;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,9 +31,15 @@ import java.util.ArrayList;
 public class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.SampleViewHolder> {
 
     private ArrayList<SampleData> listForRecyclerView;
+    private onListClickListener clickListener;
 
-    public SampleAdapter(ArrayList<SampleData> sampleDataList) {
+    public interface onListClickListener {
+        void onListClick(int viewClickedPosition);
+    }
+
+    SampleAdapter(ArrayList<SampleData> sampleDataList, onListClickListener viewClickListener) {
         this.listForRecyclerView = sampleDataList;
+        this.clickListener = viewClickListener;
     }
 
     /**
@@ -120,8 +125,13 @@ public class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.SampleView
             mainTextView = itemView.findViewById(R.id.textView);
             leftTextView = itemView.findViewById(R.id.left_text_view);
             rightTextView = itemView.findViewById(R.id.right_text_view);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickListener.onListClick(getAdapterPosition() + 1);
+                }
+            });
         }
-
 
     }
 }
