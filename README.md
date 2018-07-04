@@ -21,6 +21,11 @@ Quick Links:
 * [Shared Preferences](https://github.com/aman-alam11/basics-android/wiki/Forms-of-Persistence-:-Using-SharedPreferences)
 * [Preference Fragment Compat](https://github.com/aman-alam11/basics-android/wiki/Preference-Fragment-Compat)
 
+### Threads
+* [Basics of threading](https://github.com/aman-alam11/basics-android/wiki/Threading)
+
+### Intents and its types
+* [Intents](https://github.com/aman-alam11/basics-android/wiki/Intents)
 
 ### Making Internet Calls (Loaders, AsyncTasks, JSON etc.)
 * [General Internet Call Pattern](https://github.com/aman-alam11/basics-android/wiki/General-internet-calls-pattern)
